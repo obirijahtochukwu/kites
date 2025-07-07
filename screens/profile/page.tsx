@@ -58,9 +58,10 @@ export default function ProfileScreen() {
                     className="flex-row items-center py-3.5 gap-3"
                   >
                     <Icon width={20} height={20} />
-                    <Text className=" text-sm font-normal text-dark">
+                    <Text className=" text-sm font-normal text-dark mr-auto">
                       {name}
                     </Text>
+                    <Icons.arrow width={20} height={20} />
                   </View>
                 ))}
               </View>

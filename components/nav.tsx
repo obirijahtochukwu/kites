@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
 import { Icons } from "./icons";
+import { useNavigation } from "@react-navigation/native";
 
-const SCREENS = [
+export const SCREENS = [
   { name: "Home", route: "Home", Icon: Icons.home },
   {
     name: "Transaction",
@@ -17,7 +18,15 @@ const SCREENS = [
 export default function Nav({ state, navigation }) {
   const [display, setDisplay] = useState(false);
   const { height, width } = Dimensions.get("window");
+  const currentScreen = state.routeNames[state.index]; // Get current active screen
 
+  const isFullScreen = SCREENS.filter(
+    (screen) => screen.route === currentScreen
+  )?.length;
+
+  if (!isFullScreen) {
+    return null;
+  }
   return (
     <>
       {/* Floating Action Button */}
@@ -29,18 +38,26 @@ export default function Nav({ state, navigation }) {
         <Icons.Add width={20} height={20} color={"white"} />
         {display ? (
           <View className="relative">
-            <View
+            <TouchableOpacity
               style={{ elevation: 1 }}
+              onPress={() => {
+                navigation.navigate("ExpenseIncomeScreen");
+                setDisplay(!display);
+              }}
               className="absolute h-[52px] w-[52px] bg-white rounded-full z-10 left-4 bottom-7 flex-row items-center justify-center"
             >
               <Icons.casout />
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{ elevation: 1 }}
+              onPress={() => {
+                navigation.navigate("ExpenseIncomeScreen");
+                setDisplay(!display);
+              }}
               className="absolute h-[52px] w-[52px] bg-white rounded-full z-10 right-10 bottom-7 flex-row items-center justify-center"
             >
               <Icons.cashin />
-            </View>
+            </TouchableOpacity>
           </View>
         ) : null}
       </TouchableOpacity>

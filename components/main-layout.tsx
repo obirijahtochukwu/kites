@@ -8,7 +8,7 @@ export default function MainLayout({ children }: { children: JSX.Element }) {
         <View className="relative flex-1">
           <Image
             source={require("../assets/bg.png")}
-            className="w-full h-4/6 absolute"
+            className="w-full h-full -top-60 p-52 absolute"
             resizeMode="cover"
           />
           {children}

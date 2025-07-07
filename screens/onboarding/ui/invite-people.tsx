@@ -17,7 +17,7 @@ export default function InvitePeople() {
     <>
       <View
         style={{ marginTop: y(150), gap: y(14), height: y(329) }}
-        className="w-full flex-col items-end justify-end"
+        className="w-full flex-col items-end justify-end overflow-hidden"
       >
         {INVITE_PEOPLE.map(({ Icon, bg, title, desc }, idx) => (
           <View

@@ -91,6 +91,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+        initialRouteName="OnboardingScreen"
         tabBar={(props) => <Nav {...props} />}
         screenOptions={{
           headerShown: false,
@@ -101,9 +102,15 @@ export default function App() {
         <Tab.Screen name="Analytics" component={AnalyticsStack} />
         <Tab.Screen name="Profile" component={ProfileStack} />
         <Tab.Screen name="EditProfile" component={EditProfileScreen} />
-        {/* <Tab.Screen name="" component={} /> */}
-        {/* <Tab.Screen name="" component={} /> */}
-        {/* <Tab.Screen name="" component={} /> */}
+        <Tab.Screen
+          name="ExpenseIncomeScreen"
+          component={ExpenseIncomeScreen}
+        />
+        <Tab.Screen
+          name="SelectCategoryScreen"
+          component={SelectCategoryScreen}
+        />
+        <Tab.Screen name="OnboardingScreen" component={OnboardingScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { ScreenWrapper } from "../../components/screen-wrapper";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import IconBox from "../../components/icon-box";
 import { Texts } from "../../components/text";
 import { Icons } from "../../components/icons";
 import { Buttons } from "../../components/buttons";
 import { data } from "../select-category/mock-data";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ExpenseIncomeScreen() {
+  const { navigate } = useNavigation();
   const [tab, setTab] = useState("Expenses");
 
   return (
@@ -54,16 +62,18 @@ export default function ExpenseIncomeScreen() {
             horizontal={true}
             className="flex-1"
             contentContainerStyle={{ paddingHorizontal: 40 }}
+            showsHorizontalScrollIndicator={false}
           >
             <View className="flex-row gap-2">
               {data.map(({ name, Icon }) => (
-                <View
+                <TouchableOpacity
+                  onPress={() => navigate("SelectCategoryScreen")}
                   key={name}
                   className="flex-row items-center gap-1 py-2 px-4 mr-3 h-12 rounded-full bg-white"
                 >
                   <Icon width={24} height={24} className="w-8 h-8" />
                   <Text className="text-sm font-normal text-dark">{name}</Text>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
           </ScrollView>
