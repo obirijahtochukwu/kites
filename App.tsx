@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Dimensions,
   Image,
   ScrollView,
   StyleSheet,
@@ -10,118 +11,100 @@ import {
 import "./global.css";
 import { Icons } from "./components/icons";
 import { data } from "./mock-data";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  Manrope_300Light,
+  Manrope_400Regular,
+  Manrope_500Medium,
+  Manrope_600SemiBold,
+  Manrope_700Bold,
+} from "@expo-google-fonts/manrope";
+import { useFonts } from "expo-font";
+
+// Import your screens
+import OnboardingScreen from "./screens/onboarding/page";
+import LoginScreen from "./screens/login/page";
+import SignupScreen from "./screens/signup/page";
+import OtpScreen from "./screens/otp/page";
+import SelectCountryScreen from "./screens/select-country/page";
+import HomeScreen from "./screens/home/page";
+import TransactionScreen from "./screens/transactions/page";
+import AnalyticScreen from "./screens/analytics/page";
+import SelectCategoryScreen from "./screens/select-category/page";
+import SetBudgetScreen from "./screens/set-budget/page";
+import ProfileScreen from "./screens/profile/page";
+import EditProfileScreen from "./screens/edit-profile/page";
+import ExpenseIncomeScreen from "./screens/expense-income/page";
+import Nav from "./components/nav";
+import MainLayout from "./components/main-layout";
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function HomeStack() {
+  return (
+    <MainLayout>
+      <HomeScreen />
+    </MainLayout>
+  );
+}
+
+function TransactionsStack() {
+  return (
+    <MainLayout>
+      <TransactionScreen />
+    </MainLayout>
+  );
+}
+
+function AnalyticsStack() {
+  return (
+    <MainLayout>
+      <AnalyticScreen />
+    </MainLayout>
+  );
+}
+
+function ProfileStack() {
+  return (
+    <MainLayout>
+      <ProfileScreen />
+    </MainLayout>
+  );
+}
 
 export default function App() {
-  return (
-    <ScrollView className="bg-[#030107] relative">
-      <View
-        style={{ elevation: 15 }}
-        className="absolute top-0 bg-[7A35EB40] w-full h-[3070px] rounded-full shadow-2xl shadow-gray-500 overflow-idden"
-      >
-        <View className="relative">
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1000px] -top-[300px] w-full absolute"
-          />
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1000px] -top-[300px] w-full absolute"
-          />
-        </View>
-        <View className="relative">
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1000px] -top-[300px] w-full absolute"
-          />
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1000px] -top-[300px] w-full absolute"
-          />
-        </View>
-        <View className="relative mt-[500px] overflow-hidden h-[500px] opacity-10">
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1000px] -top-[600px] w-full absolute"
-          />
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1000px] -top-[600px] w-full absolute"
-          />
-        </View>
-        <View className="relative mt-[35px] overflow-hiddn h-[500px] opacity-[0.07] w-full bg-green-900">
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1900px] -top-[900px] w-full absolute"
-          />
-          <Image
-            source={require("./assets/bg.png")}
-            className=" h-[1900px] -top-[900px] w-full absolute"
-          />
-        </View>
-      </View>
+  const [fontsLoaded] = useFonts({
+    light: Manrope_300Light,
+    normal: Manrope_400Regular,
+    medium: Manrope_500Medium,
+    semibold: Manrope_600SemiBold,
+    bold: Manrope_700Bold,
+  });
 
-      <View className="h-full pt-14 px-4">
-        <View className="flex-row items-center justify-between">
-          <View className=" flex items-center justify-center h-14 w-14 rounded-full bg-[#7A35EB40] border-white/25 border">
-            <Icons.arrow />
-          </View>
-          <Text className=" text-white text-2xl">All Category</Text>
-          <View className=" flex items-center justify-center h-14 w-14 rounded-full bg-[#7A35EB40] border-white/25 border">
-            <Icons.theme />
-          </View>
-        </View>
-        <View className="my-5 flex-row gap-3">
-          <View className="h-12 flex-1 flex-row items-center bg-[#30155F] backdrop-blur-md rounded-full gap-1 pl-3.5 pr-3">
-            <Icons.search />
-            <TextInput
-              className=" flex-1 text-base font-normal placeholder:text-[#A4A4A6]"
-              placeholder="Search"
-            ></TextInput>
-          </View>
-          <View className="flex items-center justify-center h-12 w-12 rounded-full bg-[#7A35EB40] border-white/25 border">
-            <Icons.filter />
-          </View>
-        </View>
-        <View
-          style={{ elevation: 5 }}
-          className="flex-col z-50 gap-3 backdrop-blur-md"
-        >
-          {data.map((prop, idx) => (
-            <View className="flex-row flex-wrap gap-3">
-              {prop.row.map(({ name, Icon }, idx) => (
-                <View className="flex-1 flex-row items-center gap-2 h-16 py-2 px-3.5 bg-[#7A35EB0F] rounded-2xl">
-                  <View className="flex items-center justify-center h-12 w-12 rounded-full bg-[#7A35EB1F]">
-                    <Icon />
-                  </View>
-                  <TextInput className=" text-base font-semibold text-white">
-                    {name}
-                  </TextInput>
-                </View>
-              ))}
-            </View>
-          ))}
-        </View>
-      </View>
-      <View className="flex-row items-center justify-center h-32 w-full bg-[#0D0519] fixed bottom-9">
-        <View className="flex-row border rounded-full border-[#7A35EB66] gap-0.5">
-          <View className="flex items-center justify-center h-14 w-14 rounded-full bg-[#7A35EB1F]">
-            <Icons.home />
-          </View>
-          <View className="flex items-center justify-center h-14 w-14 rounded-full bg-[#7A35EB1F]">
-            <Icons.flower />
-          </View>
-          <View className="flex items-center justify-center h-14 w-14 rounded-full bg-[#7A35EB]">
-            <Icons.nav />
-          </View>
-          <View className="h-14 w-44 rounded-full bg-[#7A35EB1F] flex-row items-center justify-between pl-4 pr-1">
-            <Text className="text-base font-normal text-white">Message</Text>
-            <View className="flex items-center justify-center h-12 w-12 rounded-full">
-              <Icons.mic />
-            </View>
-          </View>
-        </View>
-      </View>
-      <StatusBar />
-    </ScrollView>
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        tabBar={(props) => <Nav {...props} />}
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="Transactions" component={TransactionsStack} />
+        <Tab.Screen name="Analytics" component={AnalyticsStack} />
+        <Tab.Screen name="Profile" component={ProfileStack} />
+        <Tab.Screen name="EditProfile" component={EditProfileScreen} />
+        {/* <Tab.Screen name="" component={} /> */}
+        {/* <Tab.Screen name="" component={} /> */}
+        {/* <Tab.Screen name="" component={} /> */}
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
